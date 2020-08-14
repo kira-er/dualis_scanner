@@ -17,7 +17,6 @@ options.headless = True
 driver = webdriver.Firefox(options = options)
 driver.implicitly_wait(1)
 driver.get("https://dualis.dhbw.de/")
-#driver.get("https://dualis.dhbw.de/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome")
 
 #Username
 elem = driver.find_element_by_id("field_user")
