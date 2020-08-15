@@ -2,18 +2,17 @@ from selenium import webdriver
 from json import dumps
 from selenium.webdriver.firefox.options import Options
 import configparser
-import codecs
 
 # Get Config
 config = configparser.ConfigParser()
-config.read_file(codecs.open("config.ini","r","utf8"))
+config.read("config.ini", encoding="utf8")
 username = config["Dualis"]["user"]
 password = config["Dualis"]["password"]
 
 data = list()
 
 options = Options()
-#options.headless = True
+options.headless = True
 
 driver = webdriver.Firefox(options = options)
 driver.implicitly_wait(1)
