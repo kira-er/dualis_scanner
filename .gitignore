@@ -2,3 +2,4 @@
 /.idea
 /geckodriver-v0.27.0-win64
 geckodriver.log
+/config.ini
