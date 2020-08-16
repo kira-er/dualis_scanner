@@ -1,5 +1,7 @@
 /venv
 /.idea
 /geckodriver-v0.27.0-win64
+/__pycache__
 geckodriver.log
 config.ini
+config_mail.ini
