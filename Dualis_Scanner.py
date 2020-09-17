@@ -13,7 +13,7 @@ def get_grades (username, password):
     options.headless = True
 
     caps = DesiredCapabilities.FIREFOX
-    caps['marionette'] = True
+    caps['marionette'] = False
 
     display = Display(visible=0, size=(1024, 768))
     display.start()
