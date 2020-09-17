@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 import configparser
+from pyvirtualdisplay import Display
 
 
 
@@ -9,6 +10,9 @@ def get_grades (username, password):
 
     options = Options()
     options.headless = True
+
+    display = Display(visible=0, size=(1024, 768))
+    display.start()
 
     driver = webdriver.Firefox(options = options)
     driver.implicitly_wait(1)
