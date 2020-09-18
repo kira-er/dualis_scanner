@@ -16,7 +16,7 @@ def run_config():
         username = config[key]["user"]
         password = config[key]["password"]
         mail = config[key]["mail"]
-        filename = key + "_grades.pkl"
+        filename = "/dualis_scanner_data/" + key + "_grades.pkl"
 
         data_new = get_grades(username, password)
 
