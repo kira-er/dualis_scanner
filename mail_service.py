@@ -45,6 +45,6 @@ def create_mail(receiver_mail, message):
     config = configparser.ConfigParser()
     config.read("config_mail.ini", encoding="utf8")
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+    with smtplib.SMTP_SSL("securesmtp.t-online.de", 465, context=context) as server:
         server.login(config["Mail_Service"]["mail"], config["Mail_Service"]["password"])
         server.sendmail(config["Mail_Service"]["mail"], receiver_mail, message)
