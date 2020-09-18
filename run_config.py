@@ -25,16 +25,16 @@ def run_config():
             data_old = pickle.load(pkl_file)
             pkl_file.close()
 
-            if data_new != data_old:
+            if data_new == data_old:
+                return
 
-                send_update_mail(mail, data_new)
-
-                output = open(filename, 'wb')
-                pickle.dump(data_new, output)
-                output.close()
-
+            send_update_mail(mail, data_new)
         else:
             send_welcome_mail(mail, data_new)
+
+        output = open(filename, 'wb')
+        pickle.dump(data_new, output)
+        output.close()
 
 if __name__ == "__main__":
     run_config()
