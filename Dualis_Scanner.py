@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-
+from pyvirtualdisplay import Display
 
 
 def get_grades (username, password):
@@ -8,6 +8,9 @@ def get_grades (username, password):
 
     options = Options()
     options.headless = True
+
+    d = Display(size=(100,100))
+    d.start()
 
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(1)
