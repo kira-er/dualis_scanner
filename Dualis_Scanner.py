@@ -38,7 +38,7 @@ def get_grades(username, password):
         elem = driver.find_element_by_id("semester")
         all_semesters = elem.find_elements_by_tag_name("option")
         semester = all_semesters[semester_index]
-        semester_text = semester.text
+        semester_text = str(semester.text)
         semester.click()
 
         # select course
