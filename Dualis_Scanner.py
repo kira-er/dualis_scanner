@@ -50,7 +50,10 @@ def get_grades (username, password):
             link.click()
 
             main_window = driver.window_handles[0]
-            print(course.find_elements_by_tag_name("td")[1])
+            print(course.find_elements_by_tag_name("td")[1].text)
+
+            if len(driver.window_handles) == 1: continue
+
             driver.switch_to.window(driver.window_handles[1])
 
 
