@@ -48,9 +48,14 @@ def get_grades(username, password):
             link.click()
 
             main_window = driver.window_handles[0]
-            print(course.find_elements_by_tag_name("td")[1].text)
 
             if len(driver.window_handles) == 1:
+                data.append({
+                    "Name": "ERROR: WINDOW DIDN'T OPEN",
+                    "Note": "ERROR: WINDOW DIDN'T OPEN",
+                    "Modul": course.find_elements_by_tag_name("td")[1],
+                    "Semester": all_semesters[semester_index].text
+                })
                 continue
 
             driver.switch_to.window(driver.window_handles[1])
