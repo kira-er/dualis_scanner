@@ -1,40 +1,36 @@
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-import configparser
+from selenium.webdriver.chrome.options import Options
 
 
-
-def get_grades (username, password):
+def get_grades(username, password):
     data = list()
 
     options = Options()
     options.headless = True
 
-    driver = webdriver.Firefox(options = options)
+    driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(1)
     driver.get("https://dualis.dhbw.de/")
 
-    #Username
+    # Username
     elem = driver.find_element_by_id("field_user")
     elem.clear()
     elem.send_keys(username)
 
-    #Password
+    # Password
     elem = driver.find_element_by_id("field_pass")
     elem.clear()
     elem.send_keys(password)
 
-    #LogIn
+    # LogIn
     elem = driver.find_element_by_id("logIn_btn")
     elem.click()
 
-
-    #switch to Prüfungsergebnisse
+    # switch to Prüfungsergebnisse
     elem = driver.find_element_by_id("link000307")
     elem.click()
 
-
-    #select Semester
+    # select Semester
     elem = driver.find_element_by_id("semester")
     all_semesters_len = len(elem.find_elements_by_tag_name("option"))
 
@@ -42,9 +38,10 @@ def get_grades (username, password):
         elem = driver.find_element_by_id("semester")
         all_semesters = elem.find_elements_by_tag_name("option")
         semester = all_semesters[semester_index]
+        semester_text = str(semester.text)
         semester.click()
 
-        #select course
+        # select course
         elem = driver.find_element_by_xpath("/html/body/div[3]/div[3]/div[2]/div[2]/div/table/tbody")
         all_courses = elem.find_elements_by_tag_name("tr")[0:-1]
         for course in all_courses:
@@ -52,8 +49,17 @@ def get_grades (username, password):
             link.click()
 
             main_window = driver.window_handles[0]
-            driver.switch_to.window(driver.window_handles[1])
 
+            if len(driver.window_handles) == 1:
+                data.append({
+                    "Name": "ERROR: WINDOW DIDN'T OPEN",
+                    "Note": "ERROR: WINDOW DIDN'T OPEN",
+                    "Modul": str(course.find_elements_by_tag_name("td")[1].text),
+                    "Semester": semester_text
+                })
+                continue
+
+            driver.switch_to.window(driver.window_handles[1])
 
             elem = driver.find_element_by_xpath("/html/body/div/form/table[1]/tbody")
             all_tests = elem.find_elements_by_tag_name("tr")[4:-1]
@@ -66,16 +72,16 @@ def get_grades (username, password):
                     name = test.find_elements_by_tag_name("td")[1]
                     module = test.find_element_by_xpath("/html/body/div/form/h1")
                     sem = test.find_elements_by_tag_name("td")[0]
-                    if(sem.text != " "):
+                    if (sem.text != " "):
                         last_semester = sem.text
                 except IndexError:
                     continue
 
                 data.append({
-                    "Name" : name.text,
-                    "Note" : grade.text,
+                    "Name": name.text,
+                    "Note": grade.text,
                     "Modul": module.text,
-                    "Semester" : last_semester
+                    "Semester": last_semester
                 })
 
             driver.close()
@@ -85,4 +91,3 @@ def get_grades (username, password):
     driver.quit()
 
     return data
-

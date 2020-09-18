@@ -16,7 +16,7 @@ def run_config():
         username = config[key]["user"]
         password = config[key]["password"]
         mail = config[key]["mail"]
-        filename = key + "_grades.pkl"
+        filename = "/dualis_scanner_data/" + key + "_grades.pkl"
 
         data_new = get_grades(username, password)
 
@@ -25,16 +25,16 @@ def run_config():
             data_old = pickle.load(pkl_file)
             pkl_file.close()
 
-            if data_new != data_old:
+            if data_new == data_old:
+                return
 
-                send_update_mail(mail, data_new)
-
-                output = open(filename, 'wb')
-                pickle.dump(data_new, output)
-                output.close()
-
+            send_update_mail(mail, data_new)
         else:
             send_welcome_mail(mail, data_new)
+
+        output = open(filename, 'wb')
+        pickle.dump(data_new, output)
+        output.close()
 
 if __name__ == "__main__":
     run_config()
