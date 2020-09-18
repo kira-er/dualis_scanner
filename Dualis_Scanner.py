@@ -1,8 +1,5 @@
 from selenium import webdriver
-from selenium.webdriver import DesiredCapabilities
-from selenium.webdriver.firefox.options import Options
-import configparser
-from pyvirtualdisplay import Display
+from selenium.webdriver.chrome.options import Options
 
 
 
@@ -12,13 +9,7 @@ def get_grades (username, password):
     options = Options()
     options.headless = True
 
-    caps = DesiredCapabilities.FIREFOX
-    caps['marionette'] = False
-
-    display = Display(visible=0, size=(1024, 768))
-    display.start()
-
-    driver = webdriver.Firefox(options = options, capabilities=caps)
+    driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(1)
     driver.get("https://dualis.dhbw.de/")
 
