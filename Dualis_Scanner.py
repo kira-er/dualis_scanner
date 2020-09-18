@@ -38,6 +38,7 @@ def get_grades(username, password):
         elem = driver.find_element_by_id("semester")
         all_semesters = elem.find_elements_by_tag_name("option")
         semester = all_semesters[semester_index]
+        semester_text = semester.text
         semester.click()
 
         # select course
@@ -54,7 +55,7 @@ def get_grades(username, password):
                     "Name": "ERROR: WINDOW DIDN'T OPEN",
                     "Note": "ERROR: WINDOW DIDN'T OPEN",
                     "Modul": course.find_elements_by_tag_name("td")[1],
-                    "Semester": all_semesters[semester_index].text
+                    "Semester": semester_text
                 })
                 continue
 
