@@ -54,7 +54,7 @@ def get_grades(username, password):
                 data.append({
                     "Name": "ERROR: WINDOW DIDN'T OPEN",
                     "Note": "ERROR: WINDOW DIDN'T OPEN",
-                    "Modul": course.find_elements_by_tag_name("td")[1],
+                    "Modul": str(course.find_elements_by_tag_name("td")[1].text),
                     "Semester": semester_text
                 })
                 continue
